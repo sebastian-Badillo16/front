@@ -5,7 +5,9 @@ import home from './views/home'
 import compras from './views/compras'
 import ventas from './views/ventas'
 import inventario from './views/inventario'
-    
+import prueba from './views/prueba'    
+
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -33,6 +35,11 @@ const routes = [
       path: "/inventario",
       name: 'inventario',
       component: inventario
+    },
+    {
+      path: "/rueba",
+      name: 'prueba',
+      component: prueba 
     },
 ]
 
