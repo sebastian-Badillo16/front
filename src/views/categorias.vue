@@ -1,13 +1,16 @@
 <template>
     <div>
-            <h1>Componente hijo, categorias</h1>        
+            <cabezera/>
+            <h1>Estamos trabajando en las categorias</h1>
+            <mantenimiento/>
     </div>
 </template>
 <script>
+import mantenimiento from '../components/mantenimiento'
+import cabezera from '../components/cabezera'
 export default {
-    
+  components: { cabezera,mantenimiento },
+    mantenimiento,
+    cabezera
 }
 </script>
-<style scoped>
-
-</style>

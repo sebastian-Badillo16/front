@@ -1,7 +1,7 @@
 <template>
     <div>
             <cabezera/>
-            <h1>Estamos trabajando en los articulos</h1>
+            <h1>Estamos trabajando en las consultas ventas</h1>
             <mantenimiento/>
     </div>
 </template>

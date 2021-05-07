@@ -5,8 +5,8 @@
                 <ul>
                     <li><a><strong>Almacen</strong></a>
                     <ul>
-                        <li><a href=""><strong>Articulo</strong></a></li>
-                        <li><a href=""><strong>Categoria</strong></a></li>
+                        <li><a href="/articulos"><strong>Articulo</strong></a></li>
+                        <li><a href="/categorias"><strong>Categoria</strong></a></li>
                     </ul>
                     </li>
 
@@ -15,8 +15,8 @@
 
                         <p><br></p>
 
-                        <li><a href=""><strong>Ingresos</strong></a></li>
-                        <li><a href=""><strong>Proveedores</strong></a></li>
+                        <li><a href="/ingresos"><strong>Ingresos</strong></a></li>
+                        <li><a href="/proveedores"><strong>Proveedores</strong></a></li>
                     </ul>
                     </li>
 
@@ -27,7 +27,7 @@
                         <p><br></p>
                         
                         <li><a href="/ventas"><strong>Ventas</strong></a></li>
-                        <li><a href=""><strong>Clientes</strong></a></li>
+                        <li><a href="/persona_cliente"><strong>Clientes</strong></a></li>
                     </ul>
                     </li>
                     
@@ -39,7 +39,7 @@
                         <p><br></p>
                         <br>
                         
-                        <li><a href=""><strong>Usuarios</strong></a></li>    
+                        <li><a href="/usuarios"><strong>Usuarios</strong></a></li>    
                     </ul>
                     </li>
 
@@ -52,8 +52,8 @@
                         <p><br></p>
                         <p><br></p>
                 
-                        <li><a href=""><strong>Compras</strong></a></li>
-                        <li><a href=""><strong>Ventas</strong></a></li>    
+                        <li><a href="/consulta_compra"><strong>Compras</strong></a></li>
+                        <li><a href="/consulta_venta"><strong>Ventas</strong></a></li>    
                     </ul>
                     </li>
 

@@ -1,6 +1,7 @@
 <template>
     <div>
-    <superior/>
+    <cabezera/>
+<!--
     <router-link :to="{ name: 'login'}">login</router-link>
     <p></p>
     <router-link :to="{ name: 'home'}">home</router-link>
@@ -11,17 +12,17 @@
     <p></p>
     <router-link :to="{ name: 'inventario'}">inventario</router-link>  
     <pie/>
+-->
     </div>
-
 
 </template>
 
 <script>
 
-import superior from '../components/cabezera'
+import cabezera from '../components/cabezera'
 export default {
     components: {
-    superior
+    cabezera
   
     }
 }

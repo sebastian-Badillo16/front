@@ -14,7 +14,8 @@
                 <br>
                 <p></p>
                 <br>
-                 <button id="boton" v-on:click="login()" type="button" value="Enviar">login</button>
+                <button v-if="email.length > 3 && password.length > 3" id="boton" v-on:click="login()" type="button" value="Enviar" href="/home">login</button>
+                <button v-else id="boton"  type="button" value="Enviar">funcionando v else</button>
                  <br>
                 <p></p>
                 <br>
@@ -33,6 +34,7 @@ export default {
          login() {
       console.log(this.email);
       console.log(this.password);
+      
     }
   }
 };
