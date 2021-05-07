@@ -14,8 +14,8 @@
                 <br>
                 <p></p>
                 <br>
-                <button v-if="email.length > 3 && password.length > 3" id="boton" v-on:click="login()" type="button" value="Enviar" href="/home">login</button>
-                <button v-else id="boton"  type="button" value="Enviar">funcionando v else</button>
+                <button v-if="email.length > 5 && password.length > 7" id="boton" v-on:click="login()" type="button" value="Enviar" href="/home">Enviar</button>
+                <button v-else id="botonRed"  type="button" value="Enviar">Enviar</button>
                  <br>
                 <p></p>
                 <br>
@@ -34,7 +34,6 @@ export default {
          login() {
       console.log(this.email);
       console.log(this.password);
-      
     }
   }
 };
@@ -103,6 +102,19 @@ export default {
     padding-top:5px;
     padding-bottom:5px;
     background:#2ecc71;
+    color:white;
+    border-radius:4px;
+}
+
+#botonRed {
+    margin-left:0px;
+    margin-top: 10px;
+    width: 50%;
+    top: 100%;
+    border-radius: 25px;
+    padding-top:5px;
+    padding-bottom:5px;
+    background:#dd0a0a;
     color:white;
     border-radius:4px;
 }
