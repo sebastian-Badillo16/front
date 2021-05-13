@@ -1,5 +1,5 @@
-import Vue from "vue";
-import VueRouter from 'vue-router'
+
+
 import login from './views/login'
 import home from './views/home'
 import compras from './views/compras'
@@ -14,16 +14,16 @@ import persona_cliente from './views/persona_cliente'
 import usuarios from './views/usuarios'
 import proveedores from './views/proveedores'
 
-Vue.use(VueRouter)
 
-const routes = [
+
+export const routes = [
     {
       path: "/home",
       name: 'home',
       component: home
     },
     {
-      path: "/",
+      path: "/login",
       name: 'login',
       component: login
     },
@@ -83,13 +83,3 @@ const routes = [
       component: proveedores
     }
 ]
-
-
-
-
-const router = new VueRouter({
-    mode: "history",
-    routes
-  });
-  
-  export default router;

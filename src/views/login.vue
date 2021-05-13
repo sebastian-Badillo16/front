@@ -14,7 +14,7 @@
                 <br>
                 <p></p>
                 <br>
-                <button v-if="email.length > 5 && password.length > 7" id="boton" v-on:click="login()" type="button" value="Enviar" href="/home">Enviar</button>
+                <button v-if="email.length > 3 && password.length > 5" id="boton" v-on:click="login()" type="button" value="Enviar" href="/home">Enviar</button>
                 <button v-else id="botonRed"  type="button" value="Enviar">Enviar</button>
                  <br>
                 <p></p>
@@ -25,6 +25,7 @@
 
 </template>
 <script>
+import axios from 'axios'
 export default {
   data: () => ({
     email: "",
@@ -32,8 +33,17 @@ export default {
   }),
   methods: {
          login() {
-      console.log(this.email);
-      console.log(this.password);
+      axios.post("usuario/login", {email:this.email, password:this.password})
+      .then (response => {
+          console.log(response.data.token)
+          this.$store.dispatch("setToken", response.data.token);
+          console.log( 'Este es el token', this.$store.state.token)
+          this.$router.push("/home");
+         
+        
+      }).catch((error) =>{
+          console.log(error.response);
+      })
     }
   }
 };
