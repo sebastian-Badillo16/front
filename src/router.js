@@ -23,7 +23,7 @@ export const routes = [
       component: home
     },
     {
-      path: "/login",
+      path: "/",
       name: 'login',
       component: login
     },

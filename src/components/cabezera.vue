@@ -59,6 +59,7 @@
 
                 </ul>
                 </li>
+                <li><a><h2><strong>Almacen</strong></h2></a></li>
             </ul>
             
     </div>
@@ -74,7 +75,7 @@ export default {
 
 .superior{
     margin-top: 0px;
-    background-color: #7868e6;
+    background-color: #dc9fff;
     margin: 0px auto;
     padding: 0px;
     text-align: center;
@@ -85,7 +86,7 @@ ul, ol{
 }
 
 .nav li a{
-    background-color: #7968e6ad;
+    background-color: rgb(154, 98, 189);
     color: white;
     text-decoration: none;
     padding: 10px 20px;
@@ -95,7 +96,7 @@ ul, ol{
 }
 
 .nav li a:hover{
-    background-color: #5749b6;
+    background-color: #dc9fff;
     color: white;
 }
 

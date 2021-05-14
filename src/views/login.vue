@@ -15,7 +15,7 @@
                 <p></p>
                 <br>
                 <button v-if="email.length > 3 && password.length > 5" id="boton" v-on:click="login()" type="button" value="Enviar" href="/home">Enviar</button>
-                <button v-else id="botonRed"  type="button" value="Enviar">Enviar</button>
+                <button v-else id="botonRed" v-on:click="errores()"  type="button" value="Enviar">Enviar</button>
                  <br>
                 <p></p>
                 <br>
@@ -26,24 +26,51 @@
 </template>
 <script>
 import axios from 'axios'
+import Swal from 'sweetalert2'
 export default {
-  data: () => ({
-    email: "",
-    password: ""
-  }),
+  
+    data(){
+        return{
+            email: "",
+            password: "",
+            swal: ''
+        }
+    },
+  
   methods: {
          login() {
       axios.post("usuario/login", {email:this.email, password:this.password})
-      .then (response => {
-          console.log(response.data.token)
-          this.$store.dispatch("setToken", response.data.token);
-          console.log( 'Este es el token', this.$store.state.token)
-          this.$router.push("/home");
-         
-        
-      }).catch((error) =>{
-          console.log(error.response);
+      .then(response => {
+            this.$store.dispatch("setToken", response.data.token);
+            this.$router.push("/home");
+            console.log(response.data)
+
+            Swal.fire({
+              position: 'top-center',
+              icon: 'success',
+              title: 'Ingresado con exito!',
+              showConfirmButton: false,
+              timer: 1500
+            })
       })
+      .catch((error) =>{
+            console.log(error.response.data);
+
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Hubo un error con el correo o contraseña ',
+            })
+           
+      })
+    },
+    errores() {
+    
+    Swal.fire({
+      icon: 'question',
+      text: 'Correo o contraseña no tiene caracteres',
+    })    
+
     }
   }
 };
@@ -62,7 +89,7 @@ export default {
     margin-left: auto;
     margin-right: auto;
     border-radius: 10px;
-   background-color: #7868e6;
+    background-image: linear-gradient(-225deg, #f3e3fd 50%, #dc9fff 50%);
 }
 
 #cabezera{
@@ -80,7 +107,7 @@ export default {
 }
 
 #correo{
-    background:#ecf0f1;
+    background:#ffffff;
     border: rgba(255, 255, 255, 0) 1px solid;
     border-bottom: #ccc 2px solid;
     padding: 8px;
@@ -92,7 +119,7 @@ export default {
 }
 
 #clave{
-    background:#ecf0f1;
+    background:#ffffff;
     border: rgba(255, 255, 255, 0) 1px solid;
     border-bottom: #ccc 2px solid;
     padding: 8px;
@@ -114,6 +141,7 @@ export default {
     background:#2ecc71;
     color:white;
     border-radius:4px;
+    border-style: none;
 }
 
 #botonRed {
@@ -127,6 +155,7 @@ export default {
     background:#dd0a0a;
     color:white;
     border-radius:4px;
+    border-style: none;
 }
 
 </style>
