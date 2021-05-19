@@ -16,9 +16,11 @@ export default {
   data(){
     return {
       categorias: []
+      
     }
   },
   created(){
+    console.log(this.$store.state.token)
     this.listarCategorias()
   },
   methods:{

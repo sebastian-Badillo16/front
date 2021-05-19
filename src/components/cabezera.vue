@@ -1,126 +1,109 @@
 <template>
-    <div class="superior">
-            <ul style="float: center;" class="nav">
-                <li><a><img src="https://image.flaticon.com/icons/png/512/20/20569.png" width='32px' height="24px"></a>
+    <div id="headers">
+        <ul class="nav">
+            <!-- Cambiar etiqueta 'a href' a 'router link'-->
+            <li><a>Almacen</a>
                 <ul>
-                    <li><a><strong>Almacen</strong></a>
-                    <ul>
-                        <li><a href="/articulos"><strong>Articulo</strong></a></li>
-                        <li><a href="/categorias"><strong>Categoria</strong></a></li>
-                    </ul>
-                    </li>
-
-                    <li><a><strong>Compras</strong></a>
-                    <ul>
-
-                        <p><br></p>
-
-                        <li><a href="/ingresos"><strong>Ingresos</strong></a></li>
-                        <li><a href="/proveedores"><strong>Proveedores</strong></a></li>
-                    </ul>
-                    </li>
-
-                    <li><a><strong>Ventas</strong></a>
-                    <ul>
-
-                        <p><br></p>
-                        <p><br></p>
-                        
-                        <li><a href="/ventas"><strong>Ventas</strong></a></li>
-                        <li><a href="/persona_cliente"><strong>Clientes</strong></a></li>
-                    </ul>
-                    </li>
-                    
-                    <li><a><strong>Accesos</strong></a>
-                    <ul>
-
-                        <p><br></p>
-                        <p><br></p>
-                        <p><br></p>
-                        <br>
-                        
-                        <li><a href="/usuarios"><strong>Usuarios</strong></a></li>    
-                    </ul>
-                    </li>
-
-
-                    <li><a><strong>Consultas</strong></a>
-                    <ul>
-        
-                        <p><br></p>
-                        <p><br></p>
-                        <p><br></p>
-                        <p><br></p>
-                
-                        <li><a href="/consulta_compra"><strong>Compras</strong></a></li>
-                        <li><a href="/consulta_venta"><strong>Ventas</strong></a></li>    
-                    </ul>
-                    </li>
-
+                    <li><a><router-link :to="{ name: 'articulos'}">Articulos</router-link></a></li>
+                    <li><a><router-link :to="{ name: 'categorias'}">Categorias</router-link></a></li>
                 </ul>
-                </li>
-                <li><a><h2><strong>Almacen</strong></h2></a></li>
-            </ul>
-            
+            </li>
+         
+            <li><a>Compras</a>
+                <ul>
+                    <li><a href="/ingresos">Ingresos</a></li>
+                    <li><a href="/proveedores">Proveedores</a></li>
+                </ul>
+            </li>
+
+            <li><a>Ventas</a>
+                <ul>
+                    <li><a href="/ventas">Ventas</a></li>
+                    <li><a href="/persona_cliente">Clientes</a></li>
+                </ul>
+            </li>
+
+            <li><a>Accesos</a>
+                <ul>
+                    <li><a href="/usuarios">Usuarios</a></li>
+                </ul>
+            </li>
+
+            <li><a>consultas</a>
+                <ul>
+                    <li><a href="/consulta_compra">Compras</a></li>
+                    <li><a href="/consulta_venta">Ventas</a></li>
+                </ul>
+            </li>
+
+             <li><a><img id="imagen" src="../assets/person-fill.svg" alt="imagen"></a>
+                <ul>
+                    <li><a>Nombre: </a></li>
+                    <li><a>Rol: </a></li>
+                    <li><a href="/">Salir   <img src="../assets/power.svg" alt="imagen2"></a></li>
+                </ul>
+            </li>
+        </ul>
     </div>
 </template>
 
 <script>
+
 export default {
-    
 } 
+
 </script>
 
 <style scoped>
-
-.superior{
-    margin-top: 0px;
-    background-color: #dc9fff;
-    margin: 0px auto;
+* {
     padding: 0px;
+    margin: 0px;
+}
+
+#headers {
+    margin: auto;
+    width: max-content;
+    /*background-color: #dc9fff;*/
     text-align: center;
 }
 
-ul, ol{
+ul, ol {
     list-style: none;
 }
 
-.nav li a{
-    background-color: rgb(154, 98, 189);
-    color: white;
+.nav li a {
+    background: #ce7aff;
+    color: #fff;
     text-decoration: none;
-    padding: 10px 20px;
+    padding: 10px 15px;
     display: block;
-    font-size: 17px;
-    transition: 500ms ease-in-out;
 }
 
-.nav li a:hover{
-    background-color: #dc9fff;
-    color: white;
+.nav li a:hover {
+    background-color: #e0a9ff;
+}
+
+.nav li ul {
+    display:none;
+    position: absolute;
+    min-width: 140px;
 }
 
 .nav > li {
     float: left;
 }
 
-.nav li ul{
-    display: none;
-    position: absolute;
-    min-width: 120px;
-}
-
-.nav li:hover > ul{
+.nav li:hover > ul {
     display: block;
 }
 
-.nav li ul  li{
-    position: left;
+a{
+    text-align: center;
 }
 
-.nav li ul li ul{
-    left: 120px;
-    top: 0px;
+#imagen{
+    width: 20px;
+    height: auto;
 }
 
 </style>

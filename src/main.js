@@ -6,6 +6,7 @@ import {routes} from './router';
 import {store} from './store/store'; 
 
 axios.defaults.baseURL='http://localhost:8080/api/'
+
 Vue.use(VueRouter)
 
 const router = new VueRouter({

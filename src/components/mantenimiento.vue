@@ -1,6 +1,6 @@
 <template>
     <div>
-          <img src="https://tech-thoughts-blog.com/wp-content/uploads/2018/03/mantenimiento-de-tu-web.jpg.png" alt="falta">
+          <img src="../assets/mantenimiento.jpg" alt="falta">
     </div>
 </template>
 

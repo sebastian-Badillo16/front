@@ -1,6 +1,7 @@
 <template>
     <div>
     <cabezera/>
+    <button @click="test()">test</button>
 <!--
     <router-link :to="{ name: 'login'}">login</router-link>
     <p></p>
@@ -13,7 +14,7 @@
     <router-link :to="{ name: 'inventario'}">inventario</router-link>  
     <pie/>
 -->
-    <img id="imagen" src="https://previews.123rf.com/images/nicolasmenijes/nicolasmenijes1412/nicolasmenijes141200206/34647873-ilustraci%C3%B3n-de-render-3d-cesta-concepto-de-compra-online-de-fondo-blanco.jpg" alt="compras_imagen">
+    <img id="imagen" src="../assets/fondo.jpg" alt="compras_imagen">
 
     </div>
 
@@ -26,11 +27,17 @@ export default {
     components: {
     cabezera
   
+    },
+    methods:{
+        test(){
+            console.log(this.$store.state.token)
+        }
     }
 }
 </script>
 <style scoped>
     #imagen{
-        width: 1000px;
+        max-width: 100%;
+        height: auto;
     }
 </style>

@@ -1,5 +1,3 @@
-
-
 import login from './views/login'
 import home from './views/home'
 import compras from './views/compras'
@@ -13,8 +11,6 @@ import ingresos from './views/ingresos'
 import persona_cliente from './views/persona_cliente'
 import usuarios from './views/usuarios'
 import proveedores from './views/proveedores'
-
-
 
 export const routes = [
     {

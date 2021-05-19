@@ -39,19 +39,21 @@ export default {
   
   methods: {
          login() {
-      axios.post("usuario/login", {email:this.email, password:this.password})
-      .then(response => {
+            axios.post("usuario/login", {email:this.email, password:this.password})
+            .then(response => {
             this.$store.dispatch("setToken", response.data.token);
+            console.log('Probando token', this.$store.state.token)
             this.$router.push("/home");
-            console.log(response.data)
+            console.log(response)
 
             Swal.fire({
-              position: 'top-center',
+              position: 'center',
               icon: 'success',
               title: 'Ingresado con exito!',
               showConfirmButton: false,
               timer: 1500
             })
+
       })
       .catch((error) =>{
             console.log(error.response.data);
