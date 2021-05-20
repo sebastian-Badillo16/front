@@ -75,7 +75,7 @@ export const routes = [
     },
     {
       path: '/proveedores',
-      name: 'usuarios',
+      name: 'proveedores',
       component: proveedores
     }
 ]

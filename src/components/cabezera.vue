@@ -2,6 +2,9 @@
     <div id="headers">
         <ul class="nav">
             <!-- Cambiar etiqueta 'a href' a 'router link'-->
+            
+            <li><router-link :to="{ name: 'home'}"><img src="../assets/house-fill.svg" alt="imagen3"></router-link></li>
+
             <li><a>Almacen</a>
                 <ul>
                     <li><a><router-link :to="{ name: 'articulos'}">Articulos</router-link></a></li>
@@ -11,28 +14,28 @@
          
             <li><a>Compras</a>
                 <ul>
-                    <li><a href="/ingresos">Ingresos</a></li>
-                    <li><a href="/proveedores">Proveedores</a></li>
+                    <li><a><router-link :to="{ name: 'ingresos'}">Ingresos</router-link></a></li>
+                    <li><a><router-link :to="{ name: 'proveedores'}">Proveedores</router-link></a></li>
                 </ul>
             </li>
 
             <li><a>Ventas</a>
                 <ul>
-                    <li><a href="/ventas">Ventas</a></li>
-                    <li><a href="/persona_cliente">Clientes</a></li>
+                    <li><a><router-link :to="{ name: 'ventas'}">Ventas</router-link></a></li>
+                    <li><a><router-link :to="{ name: 'persona_cliente'}">Clientes</router-link></a></li>
                 </ul>
             </li>
 
             <li><a>Accesos</a>
                 <ul>
-                    <li><a href="/usuarios">Usuarios</a></li>
+                    <li><a><router-link :to="{ name: 'usuarios'}">Usuarios</router-link></a></li>
                 </ul>
             </li>
 
             <li><a>consultas</a>
                 <ul>
-                    <li><a href="/consulta_compra">Compras</a></li>
-                    <li><a href="/consulta_venta">Ventas</a></li>
+                    <li><a><router-link :to="{ name: 'consulta_compra'}">Compras</router-link></a></li>
+                    <li><a><router-link :to="{ name: 'consulta_venta'}">Ventas</router-link></a></li>
                 </ul>
             </li>
 
@@ -40,7 +43,7 @@
                 <ul>
                     <li><a>Nombre: </a></li>
                     <li><a>Rol: </a></li>
-                    <li><a href="/">Salir   <img src="../assets/power.svg" alt="imagen2"></a></li>
+                    <li><a><router-link :to="{ name: 'login'}">Salir   <img src="../assets/power.svg" alt="imagen2"></router-link></a></li>
                 </ul>
             </li>
         </ul>
@@ -75,7 +78,7 @@ ul, ol {
     background: #ce7aff;
     color: #fff;
     text-decoration: none;
-    padding: 10px 15px;
+    padding: 5px 10px;
     display: block;
 }
 
@@ -86,7 +89,7 @@ ul, ol {
 .nav li ul {
     display:none;
     position: absolute;
-    min-width: 140px;
+    min-width: 100px;
 }
 
 .nav > li {

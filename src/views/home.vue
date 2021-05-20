@@ -1,7 +1,6 @@
 <template>
     <div>
     <cabezera/>
-    <button @click="test()">test</button>
 <!--
     <router-link :to="{ name: 'login'}">login</router-link>
     <p></p>
@@ -29,9 +28,7 @@ export default {
   
     },
     methods:{
-        test(){
-            console.log(this.$store.state.token)
-        }
+        
     }
 }
 </script>
