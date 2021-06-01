@@ -1,16 +1,236 @@
 <template>
     <div>
             <cabezera/>
-            <h1>Estamos trabajando en los articulos</h1>
-            <mantenimiento/>
+             <div id="espacio"></div>
+     <v-data-table
+    :headers="encabezados"
+    :items="articulos"
+    sort-by="calories"
+    class="elevation-1"
+  >
+    <template v-slot:top>
+      <v-toolbar
+        flat
+      >
+        <v-toolbar-title></v-toolbar-title>
+        <v-divider
+          class="mx-4"
+          inset
+          vertical
+        ></v-divider>
+        <v-spacer></v-spacer>
+        <v-dialog
+          v-model="dialog"
+          max-width="500px"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              color="primary"
+              dark
+              class="mb-2"
+              v-bind="attrs"
+              v-on="on"
+            >
+              Nuevo Articulo
+            </v-btn>
+          </template>
+          <v-card>
+            <v-card-title>
+              <span class="headline">Articulos</span>
+            </v-card-title>
+
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                  >
+                    <v-text-field
+                      v-model="editedItem.nombre"
+                      label="Nombre"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                  >
+                    <v-text-field
+                      v-model="editedItem.descripcion"
+                      label="Descripcion"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                  >
+
+                    <v-text-field
+                      v-model="editedItem.precio"
+                      label="Precio"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                  >
+
+                  <v-text-field
+                      v-model="editedItem.codigo"
+                      label="Codigo"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                  >
+
+                  <v-text-field
+                      v-model="editedItem.stock"
+                      label="Stock"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                  >
+
+                    <v-text-field
+                      v-model="editedItem.estado"
+                      label="Estado"
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="close"
+              >
+                Cancel
+              </v-btn>
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="save"
+              >
+                Save
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        <v-dialog v-model="dialogDelete" max-width="500px">
+          <v-card>
+            <v-card-title class="headline">Are you sure you want to delete this item?</v-card-title>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-toolbar>
+    </template>
+    <template v-slot:[`item.opciones`]="{ item }">
+      <v-icon
+        small
+        class="mr-2"
+        @click="editItem(item)"
+      >
+        mdi-pencil
+      </v-icon>
+      <v-icon
+        small
+        @click="deleteItem(item)"
+      >
+        mdi-delete
+      </v-icon>
+    </template>
+    <template v-slot:no-data>
+      <v-btn
+        color="primary"
+        @click="initialize"
+      >
+        Reset
+      </v-btn>
+    </template>
+  </v-data-table>
+           
     </div>
 </template>
 <script>
-import mantenimiento from '../components/mantenimiento'
-import cabezera from '../components/cabezera'
+import Cabezera from '../components/cabezera.vue'
+import axios from 'axios'
 export default {
-  components: { cabezera,mantenimiento },
-    mantenimiento,
-    cabezera
+  components: {Cabezera},
+    
+  data(){
+    return {
+      articulos: [],
+
+       encabezados: [
+        { text: 'Nombre', align: 'start', sortable: false, value: 'nombre'},
+        { text: 'Descripcion', value: 'descripcion' },
+        { text: 'Precio', value: 'precio' },
+        { text: 'Codigo', value: 'codigo' },
+        { text: 'Stock', value: 'stock' },
+        { text: 'Estado', value: 'estado' },
+        { text: 'Opciones', value: 'opciones', sortable: false}
+      ],
+
+      editedItem: {
+        nombre: '',
+        descripcion: '',
+        estado: 0,
+        precio: 0,
+        codigo: 0,
+      },
+
+      formTitle: 'probando'
+
+      
+      
+    }
+  },
+
+  created(){
+    console.log(this.$store.state.token)
+    this.listarCategorias()
+  },
+
+  methods:{
+    listarCategorias(){
+      let header = {headers:{"token":this.$store.state.token}}
+      console.log('El token es ', this.$store.state.token);
+      console.log('El header es ', header);
+      axios.get('articulo', header)
+      .then(response => {
+        console.log (response.data.articulos);
+        this.articulos = response.data.articulos;
+      })
+      .catch(error => {
+        console.log(error.response)
+      })
+    }
+  },
 }
 </script>
+
+<style scoped>
+
+#espacio{
+  padding: 50px;
+}
+
+</style>

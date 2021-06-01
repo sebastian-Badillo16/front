@@ -5,34 +5,34 @@
             
             <li><router-link :to="{ name: 'home'}"><img src="../assets/house-fill.svg" alt="imagen3"></router-link></li>
 
-            <li><a>Almacen</a>
+            <li><a><strong>Almacen</strong></a>
                 <ul>
                     <li><a><router-link :to="{ name: 'articulos'}">Articulos</router-link></a></li>
                     <li><a><router-link :to="{ name: 'categorias'}">Categorias</router-link></a></li>
                 </ul>
             </li>
          
-            <li><a>Compras</a>
+            <li><a><strong>Compras</strong></a>
                 <ul>
                     <li><a><router-link :to="{ name: 'ingresos'}">Ingresos</router-link></a></li>
                     <li><a><router-link :to="{ name: 'proveedores'}">Proveedores</router-link></a></li>
                 </ul>
             </li>
 
-            <li><a>Ventas</a>
+            <li><a><strong>Ventas</strong></a>
                 <ul>
                     <li><a><router-link :to="{ name: 'ventas'}">Ventas</router-link></a></li>
                     <li><a><router-link :to="{ name: 'persona_cliente'}">Clientes</router-link></a></li>
                 </ul>
             </li>
 
-            <li><a>Accesos</a>
+            <li><a><strong>Accesos</strong></a>
                 <ul>
                     <li><a><router-link :to="{ name: 'usuarios'}">Usuarios</router-link></a></li>
                 </ul>
             </li>
 
-            <li><a>consultas</a>
+            <li><a><strong>consultas</strong></a>
                 <ul>
                     <li><a><router-link :to="{ name: 'consulta_compra'}">Compras</router-link></a></li>
                     <li><a><router-link :to="{ name: 'consulta_venta'}">Ventas</router-link></a></li>
@@ -41,7 +41,7 @@
 
              <li><a><img id="imagen" src="../assets/person-fill.svg" alt="imagen"></a>
                 <ul>
-                    <li><a>Nombre: </a></li>
+                    <li><a>Nombre: {{ nombre }}</a></li>
                     <li><a>Rol: </a></li>
                     <li><a><router-link :to="{ name: 'login'}">Salir   <img src="../assets/power.svg" alt="imagen2"></router-link></a></li>
                 </ul>
@@ -51,57 +51,92 @@
 </template>
 
 <script>
+import axios from 'axios'
 
 export default {
+    
+    data(){
+        return {
+            nombre: 'probando'
+        }
+    },
+
+    getNombre(){
+        axios.get('nombre')
+        .then(response => {
+            console.log (response.data.usuario.nombre);
+            this.nombre = response.data.usuario.nombre;
+        })
+        .catch(error => {
+            console.log(error.response)
+        })
+    }
+
+    
+    
 } 
 
 </script>
 
-<style scoped>
+<style scope>
 * {
     padding: 0px;
     margin: 0px;
 }
 
-#headers {
+#headers{
     margin: auto;
     width: max-content;
     /*background-color: #dc9fff;*/
     text-align: center;
+    display: block;
+    color: #fff;
+    max-width: 1000px;
+
 }
 
-ul, ol {
+ul, ol{
     list-style: none;
+    
+
+
 }
 
-.nav li a {
-    background: #ce7aff;
+.nav li a{
+    background: #877aff;
     color: #fff;
     text-decoration: none;
     padding: 5px 10px;
     display: block;
+        
+
+
 }
 
-.nav li a:hover {
+.nav li a:hover{
     background-color: #e0a9ff;
+
 }
 
-.nav li ul {
+.nav li ul{
     display:none;
     position: absolute;
     min-width: 100px;
 }
 
-.nav > li {
+.nav > li{
     float: left;
+
 }
 
-.nav li:hover > ul {
+.nav li:hover > ul{
     display: block;
+
 }
 
 a{
     text-align: center;
+
 }
 
 #imagen{

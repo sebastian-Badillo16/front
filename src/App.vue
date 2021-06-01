@@ -1,18 +1,20 @@
 <template>
-  <div id="app">
-      
-    <router-view></router-view>
-
-  </div>
+  <v-app>
+    <!--<cabezera/>-->
+    <v-main>
+      <router-view>
+      </router-view>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-
+//import cabezera from './components/cabezera.vue'
 
 export default {
   name: 'App',
   components: {
-    
+    //cabezera
   }
 }
 </script>

@@ -91,7 +91,7 @@ export default {
     margin-left: auto;
     margin-right: auto;
     border-radius: 10px;
-    background-image: linear-gradient(-225deg, #f3e3fd 50%, #dc9fff 50%);
+    background-image: linear-gradient(-225deg, #806aff 50%, #a99fff 50%);
 }
 
 #cabezera{

@@ -1,14 +1,8 @@
 <template>
     <div>
-            <cabezera/>
-
-            <hr>
-
-            <div id="grilla"><h2><strong>Grilla</strong></h2></div>
-
-            <hr>
-
-    <v-data-table
+    <cabezera/>
+    <div id="espacio"></div>
+     <v-data-table
     :headers="encabezados"
     :items="categorias"
     sort-by="calories"
@@ -18,6 +12,7 @@
       <v-toolbar
         flat
       >
+        <v-toolbar-title></v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
@@ -28,7 +23,7 @@
           v-model="dialog"
           max-width="500px"
         >
-           <template v-slot:activator="{ on, attrs }">
+          <template v-slot:activator="{ on, attrs }">
             <v-btn
               color="primary"
               dark
@@ -36,12 +31,12 @@
               v-bind="attrs"
               v-on="on"
             >
-              Nuevo
+              Nueva categoria
             </v-btn>
           </template>
           <v-card>
             <v-card-title>
-              <span class="headline">{{ formTitle }}</span>
+              <span class="headline">Categorias</span>
             </v-card-title>
 
             <v-card-text>
@@ -77,7 +72,6 @@
                       label="Estado"
                     ></v-text-field>
                   </v-col>
-                 
                 </v-row>
               </v-container>
             </v-card-text>
@@ -114,7 +108,7 @@
         </v-dialog>
       </v-toolbar>
     </template>
-    <template v-slot:[`item.actions`]="{ item }">
+    <template v-slot:[`item.opciones`]="{ item }">
       <v-icon
         small
         class="mr-2"
@@ -143,10 +137,11 @@
 </template>
 <script>
 import axios from 'axios'
-import cabezera from '../components/cabezera'
+import Cabezera from '../components/cabezera.vue'
+//import Swal from 'sweetalert2'
 export default {
-  components: { cabezera},
-    cabezera,
+  components: {Cabezera},
+    
   data(){
     return {
       categorias: [],
@@ -160,6 +155,7 @@ export default {
         },
         { text: 'Descripcion', value: 'descripcion' },
         { text: 'Estado', value: 'estado' },
+        { text: 'Opciones', value: 'opciones', sortable: false}
       ],
 
       editedItem: {
@@ -167,6 +163,10 @@ export default {
         descripcion: '',
         estado: 0,
       },
+
+      formTitle: 'probando'
+
+      
       
     }
   },
@@ -175,50 +175,6 @@ export default {
     console.log(this.$store.state.token)
     this.listarCategorias()
   },
-
-      editItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialog = true
-      },
-
-      deleteItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialogDelete = true
-      },
-
-      deleteItemConfirm () {
-        this.desserts.splice(this.editedIndex, 1)
-        this.closeDelete()
-      },
-
-      close () {
-        this.dialog = false
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        })
-      },
-
-      closeDelete () {
-        this.dialogDelete = false
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        })
-      },
-
-      save () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        } else {
-          this.desserts.push(this.editedItem)
-        }
-        this.close()
-      },
-    
-  
 
   methods:{
     listarCategorias(){
@@ -239,12 +195,9 @@ export default {
 </script>
 
 <style scoped>
-#grilla{
-  background-color: black;
-  
+
+#espacio{
+  padding: 50px;
 }
 
-#grilla strong {
-color: fff;
-}
 </style>

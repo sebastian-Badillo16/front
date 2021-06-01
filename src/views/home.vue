@@ -1,39 +1,29 @@
 <template>
     <div>
     <cabezera/>
-<!--
-    <router-link :to="{ name: 'login'}">login</router-link>
-    <p></p>
-    <router-link :to="{ name: 'home'}">home</router-link>
-    <p></p>
-    <router-link :to="{ name: 'compras'}">compras</router-link>
-    <p></p>
-    <router-link :to="{ name: 'ventas'}">ventas</router-link>
-    <p></p>
-    <router-link :to="{ name: 'inventario'}">inventario</router-link>  
-    <pie/>
--->
-    <img id="imagen" src="../assets/fondo.jpg" alt="compras_imagen">
+
+    <img id="imagen_fondo" src="../assets/fondo.jpg" alt="compras_imagen">
 
     </div>
 
 </template>
 
 <script>
-
-import cabezera from '../components/cabezera'
+import cabezera from '../components/cabezera.vue'
 export default {
     components: {
-    cabezera
-  
+        cabezera
+        
     },
     methods:{
         
     }
 }
 </script>
-<style scoped>
-    #imagen{
+<style scope>
+   
+
+    #imagen_fondo{
         max-width: 100%;
         height: auto;
     }
