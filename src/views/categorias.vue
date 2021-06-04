@@ -138,7 +138,6 @@
 <script>
 import axios from 'axios'
 import Cabezera from '../components/cabezera.vue'
-//import Swal from 'sweetalert2'
 export default {
   components: {Cabezera},
     
@@ -180,10 +179,10 @@ export default {
     listarCategorias(){
       let header = {headers:{"token":this.$store.state.token}}
       console.log('El token es ', this.$store.state.token);
-      console.log('El header es ', header);
+     // console.log('El header es ', header);
       axios.get('categoria', header)
       .then(response => {
-        console.log (response.data.categoria);
+        //console.log (response.data.categoria);
         this.categorias = response.data.categoria;
       })
       .catch(error => {

@@ -7,13 +7,17 @@ export const store = new Vuex.Store ({
 
     state: {
         token: 'hola mundo',
-        
+        rol: 'que rol tiene',
         nombre: 'nombre persona'
     
     },
     mutations: {
         setToken (state,value){
             state.token = value;
+        },
+
+        setRol (state, value) {
+            state.rol = value
         },
 
         setNombre (state,value){
@@ -25,8 +29,12 @@ export const store = new Vuex.Store ({
             context.commit ("setToken", value)
         },
 
+        setRol (context, value) {
+            context.commit ('setRol', value)
+        },
+
         setNombre (context,value){
-            context.commit ("nombre", value)
+            context.commit ("setNombre", value)
         }
      }
 

@@ -7,42 +7,60 @@
 
             <li><a><strong>Almacen</strong></a>
                 <ul>
-                    <li><a><router-link :to="{ name: 'articulos'}">Articulos</router-link></a></li>
-                    <li><a><router-link :to="{ name: 'categorias'}">Categorias</router-link></a></li>
+                    <li><a>
+                        <button @click="articulos()" value="enviar">Articulos</button>
+                        </a></li>
+                    <li><a>
+                        <button @click="categorias()" value="enviar">Categorias</button>
+                    </a></li>
                 </ul>
             </li>
          
             <li><a><strong>Compras</strong></a>
                 <ul>
-                    <li><a><router-link :to="{ name: 'ingresos'}">Ingresos</router-link></a></li>
-                    <li><a><router-link :to="{ name: 'proveedores'}">Proveedores</router-link></a></li>
+                    <li><a>
+                        <button @click="ingresos()" value="enviar">Ingresos</button>
+                    </a></li>
+                    <li><a>
+                        <button @click="proveedores()" value="enviar">Proveedores</button>      
+                    </a></li>
                 </ul>
             </li>
 
             <li><a><strong>Ventas</strong></a>
                 <ul>
-                    <li><a><router-link :to="{ name: 'ventas'}">Ventas</router-link></a></li>
-                    <li><a><router-link :to="{ name: 'persona_cliente'}">Clientes</router-link></a></li>
+                    <li><a>
+                        <button @click="ventas()" value="enviar">Ventas</button>      
+                    </a></li>
+                    <li><a>
+                        <button @click="clientes()" value="enviar">Clientes</button>      
+                    </a></li>
                 </ul>
             </li>
 
             <li><a><strong>Accesos</strong></a>
                 <ul>
-                    <li><a><router-link :to="{ name: 'usuarios'}">Usuarios</router-link></a></li>
+                    <li><a>
+                        <button @click="usuarios()" value="enviar">Usuarios</button>      
+                    </a></li>
                 </ul>
             </li>
 
             <li><a><strong>consultas</strong></a>
                 <ul>
-                    <li><a><router-link :to="{ name: 'consulta_compra'}">Compras</router-link></a></li>
-                    <li><a><router-link :to="{ name: 'consulta_venta'}">Ventas</router-link></a></li>
+                    <li><a>
+                        <button @click="consulta_compra()" value="enviar">Compras</button>      
+                    </a></li>
+                    <li><a>
+                        <button @click="consulta_venta()" value="enviar">Ventas</button>      
+                    </a></li>
                 </ul>
             </li>
 
              <li><a><img id="imagen" src="../assets/person-fill.svg" alt="imagen"></a>
                 <ul>
                     <li><a>Nombre: {{ nombre }}</a></li>
-                    <li><a>Rol: </a></li>
+                    <li><a>Rol: {{rol}} </a></li>
                     <li><a><router-link :to="{ name: 'login'}">Salir   <img src="../assets/power.svg" alt="imagen2"></router-link></a></li>
                 </ul>
             </li>
@@ -51,26 +69,155 @@
 </template>
 
 <script>
-import axios from 'axios'
+import Swal from 'sweetalert2'
 
 export default {
     
     data(){
         return {
-            nombre: 'probando'
+            nombre: this.$store.state.nombre,
+            rol: this.$store.state.rol
         }
     },
 
-    getNombre(){
-        axios.get('nombre')
-        .then(response => {
-            console.log (response.data.usuario.nombre);
-            this.nombre = response.data.usuario.nombre;
-        })
-        .catch(error => {
-            console.log(error.response)
-        })
+    methods: {
+
+        articulos(){
+            if ( this.rol == 'ADMIN_ROL' || this.rol == 'ALMACENISTA_ROL') {
+                console.log ('Funcionando con permisos') 
+
+                this.$router.push("/articulos");
+
+                } else {
+                    console.log ('Funcionando sin permisos')
+
+                    Swal.fire({
+                      icon: 'error',
+                      title: 'Oops...',
+                      text: 'No posee los permisos para ir a esta ventana',
+                    })
+
+                } 
+        },
+
+        categorias(){
+            if ( this.rol == 'ADMIN_ROL' || this.rol == 'ALMACENISTA_ROL') {
+                console.log ('Funcionando con permisos') 
+
+                this.$router.push("/categorias");
+
+                } else {
+                    console.log ('Funcionando sin permisos')
+
+                    Swal.fire({
+                      icon: 'error',
+                      title: 'Oops...',
+                      text: 'No posee los permisos para ir a esta ventana',
+                    })
+
+                } 
+        },
+
+        ingresos(){
+            if ( this.rol == 'ADMIN_ROL' || this.rol == 'ALMACENISTA_ROL') {
+                console.log ('Funcionando con permisos') 
+
+                this.$router.push("/ingresos");
+
+                } else {
+                    console.log ('Funcionando sin permisos')
+
+                    Swal.fire({
+                      icon: 'error',
+                      title: 'Oops...',
+                      text: 'No posee los permisos para ir a esta ventana',
+                    })
+
+                } 
+        },
+
+        proveedores(){
+            if ( this.rol == 'ADMIN_ROL' || this.rol == 'ALMACENISTA_ROL') {
+                console.log ('Funcionando con permisos') 
+
+                this.$router.push("/proveedores");
+
+                } else {
+                    console.log ('Funcionando sin permisos')
+
+                    Swal.fire({
+                      icon: 'error',
+                      title: 'Oops...',
+                      text: 'No posee los permisos para ir a esta ventana',
+                    })
+
+                } 
+        },
+
+        ventas(){
+            if ( this.rol == 'ADMIN_ROL' || this.rol == 'VENDEDOR_ROL') {
+                console.log ('Funcionando con permisos') 
+
+                this.$router.push("/ventas");
+
+                } else {
+                    console.log ('Funcionando sin permisos')
+
+                    Swal.fire({
+                      icon: 'error',
+                      title: 'Oops...',
+                      text: 'No posee los permisos para ir a esta ventana',
+                    })
+
+                } 
+        },
+
+        clientes(){
+            if ( this.rol == 'ADMIN_ROL' || this.rol == 'VENDEDOR_ROL') {
+                console.log ('Funcionando con permisos') 
+
+                this.$router.push("/persona_cliente");
+
+                } else {
+                    console.log ('Funcionando sin permisos')
+
+                    Swal.fire({
+                      icon: 'error',
+                      title: 'Oops...',
+                      text: 'No posee los permisos para ir a esta ventana',
+                    })
+
+                } 
+        },
+
+            usuarios(){
+                if ( this.rol == 'ADMIN_ROL') {
+                console.log ('Funcionando con permisos') 
+
+                this.$router.push("/usuarios");
+
+                } else {
+                    console.log ('Funcionando sin permisos')
+
+                    Swal.fire({
+                      icon: 'error',
+                      title: 'Oops...',
+                      text: 'No posee los permisos para ir a esta ventana',
+                    })
+
+                } 
+        },
+
+            consulta_compra(){
+                this.$router.push("/consulta_compra");
+        },
+                
+
+            consulta_venta(){
+                 this.$router.push("/consulta_venta");
+        },
     }
+
 
     
     

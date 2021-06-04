@@ -41,10 +41,17 @@ export default {
          login() {
             axios.post("usuario/login", {email:this.email, password:this.password})
             .then(response => {
+
             this.$store.dispatch("setToken", response.data.token);
-            console.log('Probando token', this.$store.state.token)
+            this.$store.dispatch('setRol', response.data.usuario.rol);
+            this.$store.dispatch('setNombre', response.data.usuario.nombre);
+
+            //console.log('Probando token', this.$store.state.token);
+            //console.log('Probando nombre', this.$store.state.nombre);
+            //console.log('Probando rol', this.$store.state.rol);
+
             this.$router.push("/home");
-            console.log(response)
+            console.log(response);
 
             Swal.fire({
               position: 'center',
@@ -52,7 +59,7 @@ export default {
               title: 'Ingresado con exito!',
               showConfirmButton: false,
               timer: 1500
-            })
+            });
 
       })
       .catch((error) =>{

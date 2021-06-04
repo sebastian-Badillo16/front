@@ -1,8 +1,8 @@
 import login from './views/login'
 import home from './views/home'
-import compras from './views/compras'
+//import compras from './views/compras'
 import ventas from './views/ventas'
-import inventario from './views/inventario'
+//import inventario from './views/inventario'
 import articulos from './views/articulos' 
 import categorias from './views/categorias'
 import consulta_compra from './views/consulta_compra'
@@ -23,21 +23,25 @@ export const routes = [
       name: 'login',
       component: login
     },
+/*
     {
       path: "/compras",
       name: 'compras',
       component: compras
     }, 
+*/
     {
       path: "/ventas",
       name: 'ventas',
       component: ventas
     },
+/*
     {
       path: "/inventario",
       name: 'inventario',
       component: inventario
     },
+*/
     {
       path: '/articulos',
       name: 'articulos',
