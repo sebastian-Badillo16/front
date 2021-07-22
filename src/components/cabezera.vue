@@ -76,12 +76,12 @@ export default {
     data(){
         return {
             nombre: this.$store.state.nombre,
-            rol: this.$store.state.rol
+            rol: this.$store.state.rol,
+            id: this.$store.state.id
         }
     },
 
     methods: {
-
         articulos(){
             if ( this.rol == 'ADMIN_ROL' || this.rol == 'ALMACENISTA_ROL') {
                 console.log ('Funcionando con permisos') 
@@ -96,7 +96,6 @@ export default {
                       title: 'Oops...',
                       text: 'No posee los permisos para ir a esta ventana',
                     })
-
                 } 
         },
 

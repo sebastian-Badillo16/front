@@ -1,7 +1,7 @@
 <template>
     <div>
-            <cabezera/>
-             <div id="espacio"></div>
+    <cabezera/>
+    <div id="espacio"></div>
      <v-data-table
     :headers="encabezados"
     :items="articulos"
@@ -99,14 +99,23 @@
                     cols="12"
                     sm="6"
                     md="4"
-                  >
+                  >                    
+                  
+                  <v-row align="center">
+                      <v-col cols="12">
+                        <v-select
+                          :items="categorias"
+                          v-model="editedItem.categoria"
+                          v-if="bd == 0"
+                          :menu-props="{ top: true, offsetY: true }"
+                          label="Categorias"
+                        ></v-select>
+                      </v-col>
+                    </v-row>
 
-                    <v-text-field
-                      v-model="editedItem.estado"
-                      label="Estado"
-                    ></v-text-field>
                   </v-col>
                 </v-row>
+  
               </v-container>
             </v-card-text>
 
@@ -115,16 +124,16 @@
               <v-btn
                 color="blue darken-1"
                 text
-                @click="close"
+                @click="dialog = false"
               >
-                Cancel
+                Cancelar
               </v-btn>
               <v-btn
                 color="blue darken-1"
                 text
-                @click="save"
+                @click="guardar"
               >
-                Save
+                Guardar
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -134,7 +143,7 @@
             <v-card-title class="headline">Are you sure you want to delete this item?</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
+              <v-btn color="blue darken-1" text @click="closeDelete">Cancelar</v-btn>
               <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
@@ -142,21 +151,33 @@
         </v-dialog>
       </v-toolbar>
     </template>
+
+                <template v-slot:[`item.estado`]="{ item }">
+                    <div v-if="item.estado">
+                        <span class="blue--text">Activo</span>
+                    </div>
+                    <div v-else>
+                        <span class="red--text">Inactivo</span>
+                    </div>
+                </template>
+
     <template v-slot:[`item.opciones`]="{ item }">
-      <v-icon
-        small
-        class="mr-2"
-        @click="editItem(item)"
-      >
-        mdi-pencil
-      </v-icon>
-      <v-icon
-        small
-        @click="deleteItem(item)"
-      >
-        mdi-delete
-      </v-icon>
-    </template>
+      <v-icon small class="mr-2" @click="editar(item)"> mdi-pencil </v-icon>
+    <!--  <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>  -->
+
+<template v-if='item.estado'>
+    <v-icon small @click="activarDesactivarMostrar (2, item)">
+      mdi-block-helper
+    </v-icon>
+</template>
+
+<template v-else>
+    <v-icon small @click="activarDesactivarMostrar (1, item)">
+      mdi-check
+    </v-icon>
+</template>
+</template>
+
     <template v-slot:no-data>
       <v-btn
         color="primary"
@@ -170,60 +191,211 @@
     </div>
 </template>
 <script>
-import Cabezera from '../components/cabezera.vue'
 import axios from 'axios'
+import Cabezera from '../components/cabezera.vue'
 export default {
   components: {Cabezera},
     
   data(){
+    
     return {
+      bd: 0,
+      
       articulos: [],
+      categorias: [],
 
        encabezados: [
-        { text: 'Nombre', align: 'start', sortable: false, value: 'nombre'},
+        {
+          text: 'Nombre',
+          align: 'start',
+          sortable: false,
+          value: 'nombre',
+        },
         { text: 'Descripcion', value: 'descripcion' },
         { text: 'Precio', value: 'precio' },
         { text: 'Codigo', value: 'codigo' },
         { text: 'Stock', value: 'stock' },
         { text: 'Estado', value: 'estado' },
+        { text: 'Categoria', value: 'categoria.nombre' },
         { text: 'Opciones', value: 'opciones', sortable: false}
       ],
 
       editedItem: {
         nombre: '',
         descripcion: '',
-        estado: 0,
         precio: 0,
-        codigo: 0,
+        codigo: '',
+        stock: '',
+        categoria: '',
       },
-
-      formTitle: 'probando'
-
-      
-      
     }
   },
 
   created(){
-    console.log(this.$store.state.token)
-    this.listarCategorias()
+    //console.log(this.$store.state.token)
+    this.listarArticulos()
+    this.selectCategoria()
   },
 
   methods:{
-    listarCategorias(){
+    listarArticulos(){
       let header = {headers:{"token":this.$store.state.token}}
-      console.log('El token es ', this.$store.state.token);
-      console.log('El header es ', header);
+      //console.log('El token es ', this.$store.state.token);
+     // console.log('El header es ', header);
       axios.get('articulo', header)
       .then(response => {
-        console.log (response.data.articulos);
+       
         this.articulos = response.data.articulos;
+        //console.log (this.articulos);
+
       })
       .catch(error => {
         console.log(error.response)
-      })
+      });
+    },
+
+      selectCategoria() {
+      let me = this;
+      let categoriaArray = [];
+      let header = { headers: { "token": this.$store.state.token } };
+      axios
+        .get("categoria", header)
+        .then(function (response) {
+          categoriaArray = response.data.categoria;
+          categoriaArray.map(function (x) {
+            me.categorias.push({ text: x.nombre, value: x._id });
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+
+    activarDesactivarMostrar(accion, item){
+      let id = item._id;
+      console.log('accion')
+        if (accion == 2){
+          console.log(id);
+          let me = this;
+          let header = { headers: { 'token': this.$store.state.token } };
+          axios
+            .put(
+              `articulo/desactivar/${id}`,
+              {
+                estado: 0
+              },
+              header              
+            )
+            .then(function () {
+              me.listarArticulos();
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        } else if (accion == 1){
+          console.log(id);
+          let me = this;
+          let header = { headers: { 'token': this.$store.state.token } };
+          axios
+            .put(
+              `articulo/activar/${id}`,
+              {
+                estado: 1
+              },
+              header              
+            )
+            .then(function () {
+              
+              me.listarArticulos();
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        }
+    },
+
+
+//Guardar y editar
+    guardar () {
+      if (this.bd == 0){
+          console.log('Guardando', this.bd);
+          let header = { headers: {'token': this.$store.state.token}}
+          const me = this;
+          axios
+          .post(
+            `articulo`,
+            {
+              nombre: this.editedItem.nombre,
+              descripcion: this.editedItem.descripcion,
+              precio: this.editedItem.precio,
+              codigo: this.editedItem.codigo,
+              stock: this.editedItem.stock,
+              categoria: this.editedItem.categoria,
+            },
+            header
+          )
+          .then ((response) => {
+            console.log(response);
+            me.listarArticulos();
+            this.limpiarCajas();
+
+          })
+          .catch((error) => {
+            console.log (error.response);
+
+          });
+      } else {
+          console.log('Editando', this.bd);
+          let header = { headers: {'token': this.$store.state.token}}
+          const me = this;
+          axios
+            .put (
+              `articulo/${this.id}`,
+              {
+                nombre: this.editedItem.nombre,
+                descripcion: this.editedItem.descripcion,
+                precio: this.editedItem.precio,
+                codigo: this.editedItem.codigo,
+                stock: this.editedItem.stock
+              },
+                header
+            )
+            .then(function (response) {
+              me.listarArticulos();
+              me.limpiarCajas()
+              console.log(response)
+            })
+            .catch(function (error) {
+              console.log(error);
+            })
+      }
+    },
+
+    editar(item){
+      console.log(item);
+      this.bd = 1;
+      this.id = item._id;
+      this.editedItem.nombre = item.nombre;
+      this.editedItem.descripcion = item.descripcion;
+      this.editedItem.precio = item.precio;
+      this.editedItem.codigo = item.codigo;
+      this.editedItem.stock =  item.stock;
+      this.editedItem.categoria = item.categoria;
+
+      this.dialog = true;
+
+    },
+
+    limpiarCajas(){
+      this.editedItem.nombre = '';
+      this.editedItem.descripcion = '';
+      this.editedItem.estado = '';
+      this.editedItem.precio = 0;
+      this.editedItem.codigo = 0;
+      this.editedItem.stock = 0;
+      this.editedItem.categoria = '';
     }
-  },
+  }
 }
 </script>
 

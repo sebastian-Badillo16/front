@@ -11,13 +11,7 @@
 <script>
 import cabezera from '../components/cabezera.vue'
 export default {
-    components: {
-        cabezera
-        
-    },
-    methods:{
-        
-    }
+    components: {cabezera}
 }
 </script>
 <style scope>

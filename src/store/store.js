@@ -6,10 +6,10 @@ Vue.use(Vuex);
 export const store = new Vuex.Store ({
 
     state: {
-        token: 'hola mundo',
-        rol: 'que rol tiene',
-        nombre: 'nombre persona'
-    
+        token: 'false',
+        rol: 'false',
+        nombre: 'false',
+        id: 'false'
     },
     mutations: {
         setToken (state,value){
@@ -22,7 +22,11 @@ export const store = new Vuex.Store ({
 
         setNombre (state,value){
             state.nombre = value;
-        }
+        },
+
+        setId (state,value){
+            state.id = value;
+        },
     },
     actions: { 
         setToken (context, value){
@@ -35,8 +39,10 @@ export const store = new Vuex.Store ({
 
         setNombre (context,value){
             context.commit ("setNombre", value)
-        }
-     }
+        },
 
-
+        setId (context,value){
+            context.commit ("setId", value)
+        },
+    },
 })
